@@ -477,7 +477,6 @@ function loadQuestion() {
     document.getElementById('answerInput').value = '';
     document.getElementById('feedbackMessage').innerHTML = '';
     document.getElementById('feedbackMessage').className = 'feedback-message';
-    document.getElementById('hintPage').innerHTML = '';
     
     document.getElementById('answerInput').focus();
 }
@@ -521,14 +520,13 @@ function submitAnswer() {
     }
 }
 
-// Show Hint
+// Show Hint - FIXED VERSION
 function showHint() {
     const question = gameState.sessionQuestions[gameState.currentQuestionIndex];
-    document.getElementById('hintContent').innerHTML = `
-        <p><strong>💡 Petunjuk:</strong></p>
-        <p>${question.hint}</p>
-    `;
-    showPage('hintPage');
+    if (question) {
+        document.getElementById('hintContent').innerHTML = `<p><strong>💡 Petunjuk:</strong></p><p>${question.hint}</p>`;
+        showPage('hintPage');
+    }
 }
 
 // Back to Question
@@ -584,7 +582,10 @@ function showPage(page) {
         p.classList.remove('active');
     });
     
-    document.getElementById(page).classList.add('active');
+    const targetPage = document.getElementById(page);
+    if (targetPage) {
+        targetPage.classList.add('active');
+    }
     
     // Update score display on menu
     if (page === 'menu') {
