@@ -37,7 +37,7 @@ const questionDatabase = {
         ],
         hard: [
             { question: "Cari persamaan garis yang melalui titik (0,2) dan (4,6)", subQuestion: "Tulis dalam bentuk y = mx + c", correctAnswer: "y=x+2", hint: "Kecerunan = (6-2)/(4-0) = 1, Pintasan-y = 2" },
-            { question: "Dua garis selari mempunyai kecerunan yang sama", subQuestion: "Jika garis pertama adalah y = 2x + 3, cari persamaan garis selari melalui (0,5)", correctAnswer: "y=2x+5", hint: "Kecerunan sama = 2, Pintasan-y = 5" },
+            { question: "Dua garis selari mempunyai kecerunan yang sama", subQuestion: "Jika garis pertama adalah y = 2x + 3, cari persamaan garis selari melalui (0,5)", correctAnswer: "y=2x+5", hint: "Kecerunan sama = 2, Guna titik (0,5) untuk cari c: 5 = 2(0) + c, c = 5" },
             { question: "Cari pintasan-x bagi persamaan: y = 2x - 8", subQuestion: "Apakah nilai x apabila y = 0?", correctAnswer: "4", hint: "Gantikan y = 0: 0 = 2x - 8, jadi 2x = 8, x = 4" },
             { question: "Bagi persamaan: 2x + 3y = 12", subQuestion: "Cari pintasan-x (apabila y = 0)", correctAnswer: "6", hint: "Gantikan y = 0: 2x = 12, x = 6" },
             { question: "Bagi persamaan: y = -3x + 9", subQuestion: "Apakah nilai x apabila y = 0?", correctAnswer: "3", hint: "Gantikan y = 0: 0 = -3x + 9, jadi 3x = 9, x = 3" }
@@ -368,7 +368,7 @@ function drawGraph(type) {
     ctx.moveTo(0, canvas.height / 2);
     ctx.lineTo(canvas.width, canvas.height / 2);
     ctx.stroke();
-    ctx.strokeStyle = var(--primary-color);
+    ctx.strokeStyle = '#3b82f6';
     ctx.lineWidth = 3;
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
