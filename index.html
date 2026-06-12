@@ -7,18 +7,41 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- LOGIN PAGE -->
-    <div id="login" class="page active">
+    <!-- LANGUAGE SELECTOR PAGE -->
+    <div id="languageSelector" class="page active">
         <div class="card fade-in">
             <div class="logo-container">
                 <div class="logo">📊</div>
             </div>
             <h1>SmartMath</h1>
-            <p class="subtitle">Belajar Graf Dengan Interaktif</p>
-            <p class="subtitle-en">Learn Graphs Interactively</p>
+            <p class="subtitle">Pilih Bahasa / Choose Language</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 30px;">
+                <button class="btn-primary" onclick="setLanguage('ms')" style="width: 100%; padding: 15px; font-size: 1.1em;">
+                    🇲🇾 Bahasa Melayu
+                </button>
+                <button class="btn-primary" onclick="setLanguage('en')" style="width: 100%; padding: 15px; font-size: 1.1em;">
+                    🇬🇧 English
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIN PAGE -->
+    <div id="login" class="page">
+        <div class="card fade-in">
+            <div class="logo-container">
+                <div class="logo">📊</div>
+            </div>
+            <h1>SmartMath</h1>
+            <p class="subtitle" id="loginSubtitle">Belajar Graf Dengan Interaktif</p>
+            <p class="subtitle-en" id="loginSubtitleEn">Learn Graphs Interactively</p>
             
             <input type="text" id="studentName" placeholder="Masukkan Nama Pelajar" maxlength="20">
-            <button onclick="startGame()" class="btn-primary">Log Masuk</button>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button onclick="startGame()" class="btn-primary" style="width: 100%;" id="loginBtn">Log Masuk</button>
+                <button onclick="setLanguage(null)" class="btn-secondary" style="width: 100%;" id="changeLanguageBtn">Tukar Bahasa</button>
+            </div>
         </div>
     </div>
 
@@ -26,7 +49,7 @@
     <div id="menu" class="page">
         <div class="card fade-in">
             <div class="header-with-score">
-                <h2>Pilih Topik</h2>
+                <h2 id="menuTitle">Pilih Topik</h2>
                 <div class="score-badge">
                     <span class="score-label">Score:</span>
                     <span id="score" class="score-value">0</span>
@@ -34,51 +57,51 @@
             </div>
 
             <div class="difficulty-selector">
-                <h3>Pilih Kesulitan:</h3>
+                <h3 id="difficultyLabel">Pilih Kesulitan:</h3>
                 <div class="difficulty-buttons">
-                    <button class="difficulty-btn active" onclick="setDifficulty('easy')">🟢 Mudah</button>
-                    <button class="difficulty-btn" onclick="setDifficulty('medium')">🟡 Sederhana</button>
-                    <button class="difficulty-btn" onclick="setDifficulty('hard')">🔴 Sukar</button>
+                    <button class="difficulty-btn active" onclick="setDifficulty('easy')" id="easyBtn">🟢 Mudah</button>
+                    <button class="difficulty-btn" onclick="setDifficulty('medium')" id="mediumBtn">🟡 Sederhana</button>
+                    <button class="difficulty-btn" onclick="setDifficulty('hard')" id="hardBtn">🔴 Sukar</button>
                 </div>
             </div>
 
             <div class="topics-grid">
                 <button class="topic-btn" onclick="startTopic('linear')">
                     <span class="topic-icon">📈</span>
-                    <span>Graf Linear</span>
+                    <span id="topicLinear">Graf Linear</span>
                 </button>
                 <button class="topic-btn" onclick="startTopic('quadratic')">
                     <span class="topic-icon">∩</span>
-                    <span>Graf Kuadratik</span>
+                    <span id="topicQuadratic">Graf Kuadratik</span>
                 </button>
                 <button class="topic-btn" onclick="startTopic('exponential')">
                     <span class="topic-icon">📊</span>
-                    <span>Graf Eksponen</span>
+                    <span id="topicExponential">Graf Eksponen</span>
                 </button>
                 <button class="topic-btn" onclick="startTopic('trigonometric')">
                     <span class="topic-icon">〰️</span>
-                    <span>Graf Trigonometrik</span>
+                    <span id="topicTrigonometric">Graf Trigonometrik</span>
                 </button>
             </div>
 
-            <div style="margin: 20px 0; display: flex; gap: 10px; flex-wrap: wrap;">
-                <button class="topic-btn" onclick="showPage('guessTheGraph')">
+            <div style="margin: 20px 0; display: flex; flex-direction: column; gap: 10px; flex-wrap: wrap;">
+                <button class="topic-btn game-btn" onclick="showPage('guessTheGraph')" style="width: 100%;">
                     <span class="topic-icon">🎮</span>
-                    <span>Teka Graf</span>
+                    <span id="guessGraphLabel">Teka Graf</span>
                 </button>
-                <button class="topic-btn" onclick="showPage('aiTutor')">
+                <button class="topic-btn ai-btn" onclick="showPage('aiTutor')" style="width: 100%;">
                     <span class="topic-icon">🤖</span>
-                    <span>AI Tutor</span>
+                    <span id="aiTutorLabel">AI Tutor</span>
                 </button>
             </div>
 
-            <button class="level-unlock-btn" id="level2Btn" style="display:none;" onclick="showPage('level2')">
+            <button class="level-unlock-btn" id="level2Btn" style="display:none; width: 100%; margin-top: 10px;" onclick="showPage('level2')">
                 ⭐ Level 2 🔓
             </button>
 
             <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
 
-            <button class="btn-secondary" onclick="showPage('login')">Keluar</button>
+            <button class="btn-secondary" onclick="logout()" style="width: 100%;" id="logoutBtn">Keluar</button>
         </div>
     </div>
 
@@ -99,8 +122,10 @@
 
             <div class="answer-section">
                 <input type="text" id="answerInput" placeholder="Masukkan Jawapan" autocomplete="off">
-                <button class="btn-primary" onclick="submitAnswer()">Hantar Jawapan</button>
-                <button class="btn-secondary" onclick="showHint()">💡 Hint</button>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                    <button class="btn-primary" onclick="submitAnswer()" style="flex: 1; min-width: 120px;" id="submitBtn">Hantar Jawapan</button>
+                    <button class="btn-secondary" onclick="showHint()" style="flex: 1; min-width: 120px;" id="hintBtn">💡 Hint</button>
+                </div>
             </div>
 
             <div id="feedbackMessage" class="feedback-message"></div>
@@ -110,9 +135,9 @@
     <!-- HINT PAGE -->
     <div id="hintPage" class="page">
         <div class="card fade-in">
-            <h2>💡 Hint</h2>
+            <h2 id="hintTitle">💡 Hint</h2>
             <div id="hintContent" class="hint-content"></div>
-            <button class="btn-primary" onclick="backToQuestion()">Kembali ke Soalan</button>
+            <button class="btn-primary" onclick="backToQuestion()" style="width: 100%;" id="backFromHintBtn">Kembali ke Soalan</button>
         </div>
     </div>
 
@@ -123,11 +148,11 @@
                 <button class="btn-back" onclick="showPage('menu')">← Kembali</button>
             </div>
             
-            <h2>🤖 AI Tutor</h2>
-            <p class="subtitle">Tanya apa saja tentang Matematik!</p>
+            <h2 id="aiTutorTitle">🤖 AI Tutor</h2>
+            <p class="subtitle" id="aiTutorSubtitle">Tanya apa saja tentang Matematik!</p>
 
             <div class="suggested-questions">
-                <h3>💡 Soalan Dicadangkan:</h3>
+                <h3 id="suggestedLabel">💡 Soalan Dicadangkan:</h3>
                 <div id="suggestedQuestionsContainer"></div>
             </div>
 
@@ -136,8 +161,10 @@
             </div>
 
             <div class="chat-input-section">
-                <input type="text" id="userQuestion" placeholder="Tanya soalan anda..." autocomplete="off">
-                <button class="btn-primary" onclick="sendQuestion()">Hantar</button>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="userQuestion" placeholder="Tanya soalan anda..." autocomplete="off" style="flex: 1;">
+                    <button class="btn-primary" onclick="sendQuestion()" id="sendBtn">Hantar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -153,13 +180,13 @@
                 <span id="gameCounter" class="question-counter">1/5</span>
             </div>
 
-            <h2>🎮 Teka Bentuk Graf</h2>
+            <h2 id="guessGraphTitle">🎮 Teka Bentuk Graf</h2>
             
             <div id="graphGameContent" class="graph-game-content">
                 <!-- Game content will be inserted here -->
             </div>
 
-            <div class="graph-options" id="graphOptions">
+            <div class="graph-options" id="graphOptions" style="display: flex; flex-direction: column; gap: 10px;">
                 <!-- Graph type options will be inserted here -->
             </div>
 
@@ -170,10 +197,10 @@
     <!-- LEVEL 2 -->
     <div id="level2" class="page">
         <div class="card fade-in level-unlock">
-            <h1>⭐ Level 2 🔓</h1>
-            <p>Tahniah! Anda berjaya unlock level baru.</p>
-            <p>Lanjutkan ke topik yang lebih mencabar!</p>
-            <button class="btn-primary" onclick="showPage('menu')">Kembali ke Menu</button>
+            <h1 id="level2Title">⭐ Level 2 🔓</h1>
+            <p id="level2Text1">Tahniah! Anda berjaya unlock level baru.</p>
+            <p id="level2Text2">Lanjutkan ke topik yang lebih mencabar!</p>
+            <button class="btn-primary" onclick="showPage('menu')" style="width: 100%;" id="level2BackBtn">Kembali ke Menu</button>
         </div>
     </div>
 
@@ -181,24 +208,24 @@
     <div id="success" class="page">
         <div class="card fade-in success-card">
             <div class="trophy">🏆</div>
-            <h1>Tahniah!</h1>
-            <p>Anda berjaya menyelesaikan topik ini.</p>
-            <div class="final-score">
+            <h1 id="successTitle">Tahniah!</h1>
+            <p id="successText">Anda berjaya menyelesaikan topik ini.</p>
+            <div class="final-score" id="scoreLabel">
                 Markah: <span id="finalScore">0</span>/100
             </div>
             <div class="performance-text" id="performanceText"></div>
-            <button class="btn-primary" onclick="showPage('menu')">← Kembali ke Menu</button>
+            <button class="btn-primary" onclick="showPage('menu')" style="width: 100%;" id="successBackBtn">← Kembali ke Menu</button>
         </div>
     </div>
 
     <!-- STATS PAGE -->
     <div id="stats" class="page">
         <div class="card fade-in">
-            <h2>📊 Statistik Anda</h2>
+            <h2 id="statsTitle">📊 Statistik Anda</h2>
             <div id="statsContent" class="stats-content">
                 <!-- Stats will be inserted here -->
             </div>
-            <button class="btn-primary" onclick="showPage('menu')">Kembali ke Menu</button>
+            <button class="btn-primary" onclick="showPage('menu')" style="width: 100%;" id="statsBackBtn">Kembali ke Menu</button>
         </div>
     </div>
 
