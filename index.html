@@ -61,6 +61,17 @@
                 </button>
             </div>
 
+            <div style="margin: 20px 0; display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="topic-btn" onclick="showPage('guessTheGraph')">
+                    <span class="topic-icon">🎮</span>
+                    <span>Teka Graf</span>
+                </button>
+                <button class="topic-btn" onclick="showPage('aiTutor')">
+                    <span class="topic-icon">🤖</span>
+                    <span>AI Tutor</span>
+                </button>
+            </div>
+
             <button class="level-unlock-btn" id="level2Btn" style="display:none;" onclick="showPage('level2')">
                 ⭐ Level 2 🔓
             </button>
@@ -102,6 +113,57 @@
             <h2>💡 Hint</h2>
             <div id="hintContent" class="hint-content"></div>
             <button class="btn-primary" onclick="backToQuestion()">Kembali ke Soalan</button>
+        </div>
+    </div>
+
+    <!-- AI TUTOR PAGE -->
+    <div id="aiTutor" class="page">
+        <div class="card fade-in">
+            <div class="question-header">
+                <button class="btn-back" onclick="showPage('menu')">← Kembali</button>
+            </div>
+            
+            <h2>🤖 AI Tutor</h2>
+            <p class="subtitle">Tanya apa saja tentang Matematik!</p>
+
+            <div class="suggested-questions">
+                <h3>💡 Soalan Dicadangkan:</h3>
+                <div id="suggestedQuestionsContainer"></div>
+            </div>
+
+            <div class="chat-container">
+                <div id="chatMessages" class="chat-messages"></div>
+            </div>
+
+            <div class="chat-input-section">
+                <input type="text" id="userQuestion" placeholder="Tanya soalan anda..." autocomplete="off">
+                <button class="btn-primary" onclick="sendQuestion()">Hantar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GUESS THE GRAPH GAME -->
+    <div id="guessTheGraph" class="page">
+        <div class="card fade-in">
+            <div class="question-header">
+                <button class="btn-back" onclick="showPage('menu')">← Kembali</button>
+                <div class="progress-bar">
+                    <div id="gameProgressFill" class="progress-fill"></div>
+                </div>
+                <span id="gameCounter" class="question-counter">1/5</span>
+            </div>
+
+            <h2>🎮 Teka Bentuk Graf</h2>
+            
+            <div id="graphGameContent" class="graph-game-content">
+                <!-- Game content will be inserted here -->
+            </div>
+
+            <div class="graph-options" id="graphOptions">
+                <!-- Graph type options will be inserted here -->
+            </div>
+
+            <div id="gameMessage" class="feedback-message"></div>
         </div>
     </div>
 
